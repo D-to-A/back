@@ -63,6 +63,15 @@
 | refresh_token | 리프레시 토큰 저장 |
 | created_at / updated_at | 생성/수정 시간 |
 
+### clubs 테이블
+| 필드            | 설명                               |
+| ------------- | -------------------------------- |
+| `id`          | `BIGINT`, `AUTO_INCREMENT`, 기본 키 |
+| `name`        | 동아리 이름                           |
+| `club_stack`  | 동아리의 주요 기술 스택                    |
+| `description` | 동아리 설명/소개                        |
+
+
 ---
 
 ## 🧑‍💻 개발자 참고
