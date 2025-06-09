@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 및 유저 관리</title>
+</head>
+<body>
+<h2>회원가입 테스트</h2>
+<form id="registerForm">
+    <label>아이디: <input type="text" id="username" required></label><br><br>
+    <label>비밀번호: <input type="password" id="password" required></label><br><br>
+    <label>이름: <input type="text" id="realName" required></label><br><br>
+    <label>학년: <input type="text" id="grade"></label><br><br>
+    <label>반: <input type="text" id="className"></label><br><br>
+    <label>번호: <input type="text" id="studentNum"></label><br><br>
+    <label>주 스택: <input type="text" id="mainStack"></label><br><br>
+    <label>보조 스택: <input type="text" id="subStack"></label><br><br>
+    <label>소속 동아리:
+        <select id="clubId" required>
+            <option value="">선택하세요</option>
+        </select>
+    </label><br><br>
+    <button type="submit">회원가입</button>
+</form>
+
+<div id="response" style="margin-top:20px;"></div>
+
+<hr>
+<h2>등록된 유저 목록</h2>
+<table border="1" cellpadding="8">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>아이디</th>
+        <th>이름</th>
+        <th>소속 동아리</th>
+        <th>삭제</th>
+    </tr>
+    </thead>
+    <tbody id="userTableBody">
+    <tr><td colspan="5">불러오는 중...</td></tr>
+    </tbody>
+</table>
+
+<script>
+    const form = document.getElementById('registerForm');
+    const responseDiv = document.getElementById('response');
+    const userTableBody = document.getElementById('userTableBody');
+    const clubSelect = document.getElementById('clubId');
+
+    async function fetchClubs() {
+        const res = await fetch('http://localhost:8080/club/all');
+        const clubs = await res.json();
+        clubSelect.innerHTML = '<option value="">선택하세요</option>';
+        clubs.forEach(club => {
+            const option = document.createElement('option');
+            option.value = club.id;
+            option.textContent = club.name;
+            clubSelect.appendChild(option);
+        });
+    }
+
+    async function fetchUsers() {
+        const res = await fetch('http://localhost:8080/auth/users/all');
+        const users = await res.json();
+
+        if (users.length === 0) {
+            userTableBody.innerHTML = '<tr><td colspan="5">유저 없음</td></tr>';
+            return;
+        }
+
+        userTableBody.innerHTML = '';
+        users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.realName}</td>
+                <td>${user.clubName}</td>
+                <td><button onclick="deleteUser(${user.id})">삭제</button></td>
+            `;
+            userTableBody.appendChild(row);
+        });
+    }
+
+    async function deleteUser(id) {
+        const res = await fetch(`http://localhost:8080/auth/users/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+            alert("삭제 완료");
+            await fetchUsers();
+        } else {
+            alert("삭제 실패");
+        }
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const data = {
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value,
+            realName: document.getElementById('realName').value,
+            grade: document.getElementById('grade').value,
+            className: document.getElementById('className').value,
+            studentNum: document.getElementById('studentNum').value,
+            mainStack: document.getElementById('mainStack').value,
+            subStack: document.getElementById('subStack').value,
+            clubId: parseInt(clubSelect.value)
+        };
+
+        const res = await fetch('http://localhost:8080/auth/users/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        const json = await res.json();
+        responseDiv.innerHTML = `<pre>${JSON.stringify(json, null, 2)}</pre>`;
+        await fetchUsers();
+    });
+
+    fetchClubs();
+    fetchUsers();
+</script>
+</body>
+</html>
