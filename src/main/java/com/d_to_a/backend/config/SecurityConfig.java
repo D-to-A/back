@@ -37,11 +37,7 @@ public class SecurityConfig {
                         // 정적 자원 접근 허용
                         .requestMatchers(
                                 "/",
-                                "/index.html",
-                                "/css/**",
-                                "/js/**",
-                                "/images/**",
-                                "/favicon.ico"
+                                "/index.html"
                         ).permitAll()
 
                         // 인증 없이 접근 가능한 경로
