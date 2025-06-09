@@ -45,7 +45,7 @@ public class SecurityConfig {
                         ).permitAll()
 
                         // 인증 없이 접근 가능한 경로
-                        .requestMatchers("/auth/**", "/club/**").permitAll()
+                        .requestMatchers("/auth/**", "/club/**", "/users/**").permitAll()
 
                         // 그 외는 인증 필요
                         .anyRequest().authenticated()

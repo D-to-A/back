@@ -21,6 +21,8 @@ public class AutoIncrementInitializer {
         Long clubMaxId = jdbcTemplate.queryForObject("SELECT IFNULL(MAX(id), 0) FROM clubs", Long.class);
         jdbcTemplate.execute("ALTER TABLE clubs AUTO_INCREMENT = " + (clubMaxId + 1));
 
-        System.out.println("[AUTO_INCREMENT 초기화 완료] users=" + (userMaxId + 1) + ", clubs=" + (clubMaxId + 1));
+        // awards 테이블 초기화
+        Long awardsMaxId = jdbcTemplate.queryForObject("SELECT IFNULL(MAX(id), 0) FROM awards", Long.class);
+        jdbcTemplate.execute("ALTER TABLE awards AUTO_INCREMENT = " + (awardsMaxId + 1));
     }
 }

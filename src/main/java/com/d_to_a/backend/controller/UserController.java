@@ -3,6 +3,7 @@ package com.d_to_a.backend.controller;
 import com.d_to_a.backend.dto.*;
 import com.d_to_a.backend.entity.User;
 import com.d_to_a.backend.repository.UserRepository;
+import com.d_to_a.backend.service.AwardService;
 import com.d_to_a.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class UserController {
 
     private final UserService userService;
     private final UserRepository userRepository;
+    private final AwardService awardService;
 
     @PostMapping("/register")
     public ResponseEntity<UserRegisterResponse> register(@RequestBody UserRegisterRequest request) {
@@ -69,5 +71,24 @@ public class UserController {
         return ResponseEntity.ok("유저 정보가 성공적으로 수정되었습니다.");
     }
 
+    // 수상 내역 조회
+    @GetMapping("/{userId}/awards")
+    public ResponseEntity<List<AwardResponse>> getUserAwards(@PathVariable Long userId) {
+        return ResponseEntity.ok(awardService.getUserAwards(userId));
+    }
+
+    // 수상 내역 추가
+    @PostMapping("/{userId}/awards")
+    public ResponseEntity<AwardResponse> addAward(@PathVariable Long userId,
+                                                  @RequestBody AwardRequest request) {
+        return ResponseEntity.ok(awardService.addAward(userId, request));
+    }
+
+    // 수상 내역 삭제
+    @DeleteMapping("/awards/{awardId}")
+    public ResponseEntity<Void> deleteAward(@PathVariable Long awardId) {
+        awardService.deleteAward(awardId);
+        return ResponseEntity.noContent().build();
+    }
 
 }
