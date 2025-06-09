@@ -12,6 +12,13 @@
 
 ### 👤 마이페이지
 
+| 메서드    | URI                                | 설명              |
+| ------ | ---------------------------------- | --------------- |
+| GET    | `/users/{userId}/awards`           | 특정 유저의 수상 내역 조회 |
+| POST   | `/users/{userId}/awards`           | 수상 내역 등록     |
+| DELETE | `/users/{userId}/awards/{awardId}` | 특정 유저 수상 내역 삭제     |
+
+
 | 메서드 | URI | 설명 |
 | --- | --- | --- |
 | GET | `/users/{userId}` | 유저 정보 조회 |
