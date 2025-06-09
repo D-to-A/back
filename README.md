@@ -1,3 +1,20 @@
+## 🧩 Gradle 설정 요약
+
+### 주요 사용 라이브러리
+
+- **Spring Boot 3.5.0**
+    - `spring-boot-starter-web`, `spring-boot-starter-data-jpa`, `spring-boot-starter-security`, `spring-boot-starter-validation`
+- **JWT 인증**
+    - `jjwt-api`, `jjwt-impl`, `jjwt-jackson` (v0.12.5)
+- **DB 연동**
+    - MySQL 드라이버, `spring-boot-starter-data-jdbc`
+- **Lombok**
+    - `@Getter`, `@Setter`, `@NoArgsConstructor` 등 코드 간결화를 위해 사용
+- **테스트**
+    - JUnit5 기반 테스트 지원: `spring-boot-starter-test`, `spring-security-test`
+
+---
+
 ## ✅ 구현된 기능
 
 ### 🔐 인증/보안
