@@ -96,6 +96,15 @@
 | `description` | 동아리 설명/소개                        |
 
 
+### awards 테이블
+| 필드            | 설명                               |
+| ------------- | -------------------------------- |
+| `id`          | `BIGINT`, `AUTO_INCREMENT`, 기본 키 |
+| `title`       | 수상 제목                            |
+| `description` | 수상 설명                            |
+| `awarded_at`  | 수상 일자 (`DATE`)                   |
+| `user_id`     | 수상자(`users` 테이블) 외래 키 (`BIGINT`) |
+
 ---
 
 ## 🧑‍💻 개발자 참고
