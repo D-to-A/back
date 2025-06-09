@@ -1,17 +1,17 @@
-## 🧩 Gradle 설정 요약
+## 📦 추가된 종속성
 
-### 주요 사용 라이브러리
-
-- **Spring Boot 3.5.0**
-    - `spring-boot-starter-web`, `spring-boot-starter-data-jpa`, `spring-boot-starter-security`, `spring-boot-starter-validation`
-- **JWT 인증**
-    - `jjwt-api`, `jjwt-impl`, `jjwt-jackson` (v0.12.5)
-- **DB 연동**
-    - MySQL 드라이버, `spring-boot-starter-data-jdbc`
-- **Lombok**
-    - `@Getter`, `@Setter`, `@NoArgsConstructor` 등 코드 간결화를 위해 사용
-- **테스트**
-    - JUnit5 기반 테스트 지원: `spring-boot-starter-test`, `spring-security-test`
+| 라이브러리 이름                   | 설명                                                                    |
+| -------------------------- | --------------------------------------------------------------------- |
+| **Spring Boot DevTools**   | 핫 리로딩 등 개발 편의 기능을 제공하는 도구 모음                                          |
+| **Lombok**                 | `@Getter`, `@Setter`, `@Builder` 등 반복되는 코드를 줄여주는 어노테이션 기반 코드 자동 생성 도구 |
+| **Spring Web**             | REST API 개발에 필수적인 웹 MVC 기능 (`@RestController`, `@RequestMapping` 등)   |
+| **Spring Security**        | 인증/인가 처리를 위한 보안 프레임워크, JWT 인증 처리 등에서 활용                               |
+| **JDBC API**               | Java에서 DB와 직접 통신할 수 있게 해주는 기본 API (`java.sql`)                        |
+| **Spring Data JPA**        | JPA 기반 ORM 매핑을 위한 Spring 확장 라이브러리. Repository 인터페이스 자동 구현 지원          |
+| **Spring Data JDBC**       | JPA 없이 간단한 SQL 중심의 JDBC 매핑을 제공하는 Spring Data 모듈                       |
+| **MySQL Driver**           | MySQL 데이터베이스와 Java 애플리케이션을 연결해주는 드라이버 (`com.mysql:mysql-connector-j`) |
+| **Validation**             | Bean Validation(JSR-380) 기반 유효성 검증 (`@Valid`, `@NotNull`, `@Email` 등) |
+| **CycloneDX SBOM support** | 프로젝트의 소프트웨어 구성 요소(BOM)를 생성하는 보안 도구로, 취약점 분석 등에 활용 가능                  |
 
 ---
 
