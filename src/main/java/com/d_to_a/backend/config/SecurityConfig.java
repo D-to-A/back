@@ -37,11 +37,12 @@ public class SecurityConfig {
                         // 정적 자원 접근 허용
                         .requestMatchers(
                                 "/",
-                                "/index.html"
+                                "/index.html",
+                                "/swagger-ui"
                         ).permitAll()
 
                         // 인증 없이 접근 가능한 경로
-                        .requestMatchers("/auth/**", "/club/**", "/users/**").permitAll()
+                        .requestMatchers("/auth/**", "/club/**", "/users/**", "/swagger-ui/**").permitAll()
 
                         // 그 외는 인증 필요
                         .anyRequest().authenticated()
