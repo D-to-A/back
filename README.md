@@ -21,7 +21,7 @@
 
 | 메서드 | URI | 설명 |
 | --- | --- | --- |
-| POST | `/auth/users/register` | 회원가입 |
+| POST | `/auth/register` | 회원가입 |
 | POST | `/auth/login` | 로그인 (JWT 발급) |
 | POST | `/auth/logout` | 로그아웃 (refreshToken 초기화 예정) |
 
