@@ -38,11 +38,12 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/",
                                 "/index.html",
-                                "/swagger-ui"
+                                "/swagger-ui/index.html",
+                                "/v3/api-docs"
                         ).permitAll()
 
                         // 인증 없이 접근 가능한 경로
-                        .requestMatchers("/auth/**", "/club/**", "/users/**", "/swagger-ui/**").permitAll()
+                        .requestMatchers("/auth/**", "/club/**", "/users/**", "/swagger-ui/**", "/v3/**").permitAll()
 
                         // 그 외는 인증 필요
                         .anyRequest().authenticated()

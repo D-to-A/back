@@ -24,62 +24,6 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JdbcTemplate jdbcTemplate;
 
-    public UserRegisterResponse register(UserRegisterRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new IllegalArgumentException("이미 존재하는 사용자입니다.");
-        }
-
-        Club club = clubRepository.findById(request.getClubId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 동아리입니다."));
-
-        User user = User.builder()
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .realName(request.getRealName())
-                .grade(request.getGrade())
-                .className(request.getClassName())
-                .studentNum(request.getStudentNum())
-                .mainStack(request.getMainStack())
-                .subStack(request.getSubStack())
-                .club(club)
-                .role("STUDENT")
-                .refreshToken("")
-                .lastPwdChange(LocalDateTime.now())
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
-                .build();
-
-        User savedUser = userRepository.save(user);
-
-        // 현재 MAX(id)
-        Long maxId = jdbcTemplate.queryForObject("SELECT IFNULL(MAX(id), 0) FROM users", Long.class);
-
-        // 현재 AUTO_INCREMENT 값 조회
-        Long currentAutoIncrement = jdbcTemplate.queryForObject(
-                "SELECT AUTO_INCREMENT FROM information_schema.TABLES " +
-                        "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users'", Long.class
-        );
-
-        // 필요 시만 업데이트
-        if (currentAutoIncrement != null && maxId != null && currentAutoIncrement <= maxId) {
-            jdbcTemplate.execute("ALTER TABLE users AUTO_INCREMENT = " + (maxId + 1));
-        }
-
-
-        return UserRegisterResponse.builder()
-                .id(savedUser.getId())
-                .username(savedUser.getUsername())
-                .realName(savedUser.getRealName())
-                .grade(savedUser.getGrade())
-                .className(savedUser.getClassName())
-                .studentNum(savedUser.getStudentNum())
-                .mainStack(savedUser.getMainStack())
-                .subStack(savedUser.getSubStack())
-                .role(savedUser.getRole())
-                .clubName(savedUser.getClub().getName())
-                .build();
-    }
-
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
 
